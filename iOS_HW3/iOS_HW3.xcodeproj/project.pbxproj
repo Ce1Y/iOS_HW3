@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		59F92C2A2AE8B2ED00464F4E /* iOS_hw3App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59F92C292AE8B2ED00464F4E /* iOS_hw3App.swift */; };
 		59F92C2C2AE8B2ED00464F4E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59F92C2B2AE8B2ED00464F4E /* ContentView.swift */; };
 		59F92C2E2AE8B2EE00464F4E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 59F92C2D2AE8B2EE00464F4E /* Assets.xcassets */; };
 		59F92C312AE8B2EE00464F4E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 59F92C302AE8B2EE00464F4E /* Preview Assets.xcassets */; };
+		59F92C372AE8B36200464F4E /* iOS_hw3App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59F92C292AE8B2ED00464F4E /* iOS_hw3App.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -137,8 +137,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				59F92C372AE8B36200464F4E /* iOS_hw3App.swift in Sources */,
 				59F92C2C2AE8B2ED00464F4E /* ContentView.swift in Sources */,
-				59F92C2A2AE8B2ED00464F4E /* iOS_hw3App.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
