@@ -18,12 +18,17 @@ struct ResultView: View {
     
     var body: some View {
         HStack {
+//            這裡原本是打算如果傳入的值為空，則顯示預設的行人頭像
             if avatar == Image("") {
                 Image("figure.stand")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 200)
                     .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
+                    .background(
+                        Circle()
+                            .stroke(Color.white, lineWidth: 5)
+                    )
             } else {
                 avatar?
                     .resizable()
@@ -34,8 +39,8 @@ struct ResultView: View {
                         Circle()
                             .stroke(Color.white, lineWidth: 5)
                     )
-                    .padding(0)
             }
+//            自我信息區
             List {
                 Section {
                     Text("姓名：\(lastName)\(firstName)")
@@ -58,5 +63,5 @@ struct ResultView: View {
 }
 
 #Preview {
-    ResultView(avatar: .constant(Image("")), lastName: .constant(""), firstName: .constant(""), gender: .constant(""), height: .constant(0.0), bornDate: .constant(Date()), bgColor: .constant(Color(Color.red)))
+    ResultView(avatar: .constant(Image("figure.stand")), lastName: .constant(""), firstName: .constant(""), gender: .constant(""), height: .constant(0.0), bornDate: .constant(Date()), bgColor: .constant(Color(Color.red)))
 }

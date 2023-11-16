@@ -19,7 +19,7 @@ struct ContentView: View {
     @State private var height = 0.0
     @State private var isExpanded = false
     @State private var bornDate = Date()
-    @State private var showResult = false
+    @State private var showResultAlert = false
     @State private var showAlert = false
     @State private var alertTitle = ""
     @State private var showResultView = false
@@ -28,14 +28,16 @@ struct ContentView: View {
     var body: some View {
         NavigationStack {
             Form {
+//                姓名填入區
                 Section {
                     TextField("姓", text: $lastName)
                     TextField("名", text: $firstName)
                 } header: {
                     Text("姓名")
                 }
-                
+//                基本信息區
                 Section {
+//                    身高區
                     DisclosureGroup("身高：\(height, specifier: "%.1f")", isExpanded: $isExpanded) {
                         HStack {
                             Slider(value:$height, in: 0...210, step: 0.1)
@@ -43,17 +45,19 @@ struct ContentView: View {
                                 .labelsHidden()
                         }
                     }
+//                    性別區
                     Picker("選擇性別：\(gender)", selection: $sexIndex) {
                         ForEach(sex.indices, id: \.self) { index in
                             Text(sex[index])
                         }
                     }
                     .onChange(of: sexIndex) { gender = sex[sexIndex] }
+//                    生日區
                     DatePicker("生日：\(bornDate.formatted(.dateTime.month().day()))", selection: $bornDate, displayedComponents: .date)
                 } header: {
                     Text("基本信息")
                 }
-
+//                    照片選擇區
                 Section {
                     HStack(alignment: .center) {
                         image?
@@ -66,7 +70,7 @@ struct ContentView: View {
                         Text("大頭貼")
                         PhotosPicker(
                             selection: $selectedPhoto,
-                            // limit the type of selected photos
+                            // 限制選擇照片的方式
                             matching: .images
                         ) {
                             Image(systemName: "pencil")
@@ -75,7 +79,7 @@ struct ContentView: View {
                         }
                     }
                 }
-                
+//                背景顏色區
                 Section {
                     VStack {
                         
@@ -90,12 +94,13 @@ struct ContentView: View {
                         ).labelsHidden()
                     }
                 }
-                
+//                查看結果按鈕
                 Section {
                     Button {
                         let judge = Judge(lastName: $lastName, firstName: $firstName, gender: $gender, height: $height, bornDate: $bornDate)
+//                        進入判斷，如果沒有少資料則將結果顯示，否則顯示錯誤
                         if (!judge.judge()) {
-                            showResult = true
+                            showResultAlert = true
                             alertTitle = ["有缺少的資料喔！", "再回去檢查一下吧？"].randomElement()!
                         } else { showResultView = true }
                     } label: {
@@ -103,14 +108,15 @@ struct ContentView: View {
                             Text("查看結果")
                         }
                     }
+//                    點擊則可開啟一個sheet
                     .sheet(isPresented: $showResultView) {
                         ResultView(avatar: $image, lastName: $lastName, firstName: $firstName, gender: $gender, height: $height, bornDate: $bornDate, bgColor: $color)
                     }
-                    .alert(alertTitle, isPresented: $showResult) {
+                    .alert(alertTitle, isPresented: $showResultAlert) {
                         Button("OK") {}
                     }
                 }
-                
+//                重置按鈕區
                 Section {
                     Button("Reset All Content and Settings") {
                         showAlert = true
