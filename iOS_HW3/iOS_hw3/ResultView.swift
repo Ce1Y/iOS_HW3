@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ResultView: View {
+    @Binding var avatar: Image?
     @Binding var lastName: String
     @Binding var firstName: String
     @Binding var gender: String
@@ -17,29 +18,45 @@ struct ResultView: View {
     
     var body: some View {
         HStack {
-            Image("")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 100)
-                .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
+            if avatar == Image("") {
+                Image("figure.stand")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 200)
+                    .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
+            } else {
+                avatar?
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 200)
+                    .clipShape(Circle())
+                    .background(
+                        Circle()
+                            .stroke(Color.white, lineWidth: 5)
+                    )
+                    .padding(0)
+            }
             List {
                 Section {
                     Text("姓名：\(lastName)\(firstName)")
                     Text("性別：\(gender)")
-                    Text("年齡：")
                     Text("生日：\(bornDate.formatted(.dateTime.month().day()))")
                     Text("身高：\(height, specifier: "%.1f")")
                 }
                 .listRowSeparator(.hidden)
             }
-            .frame(width: 200, height: 300)
+            .frame(height: 250)
             .scrollContentBackground(.hidden)
-            
-            
         }
+        .background(
+            Rectangle()
+                .stroke(Color.black, lineWidth: 1)
+                .fill(bgColor)
+                .cornerRadius(10.0)
+        )
     }
 }
 
 #Preview {
-    ResultView(lastName: .constant(""), firstName: .constant(""), gender: .constant(""), height: .constant(0.0), bornDate: .constant(Date()), bgColor: .constant(Color(Color.red)))
+    ResultView(avatar: .constant(Image("")), lastName: .constant(""), firstName: .constant(""), gender: .constant(""), height: .constant(0.0), bornDate: .constant(Date()), bgColor: .constant(Color(Color.red)))
 }

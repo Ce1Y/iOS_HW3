@@ -9,7 +9,7 @@ import SwiftUI
 import PhotosUI
 
 struct ContentView: View {
-    private var sex = ["男", "女", "雙性", "無性", "直升機"]
+    private var sex = ["", "男", "女", "雙性", "無性", "直升機"]
     @State private var selectedPhoto: PhotosPickerItem?
     @State private var image: Image?
     @State private var lastName = ""
@@ -104,7 +104,7 @@ struct ContentView: View {
                         }
                     }
                     .sheet(isPresented: $showResultView) {
-                        
+                        ResultView(avatar: $image, lastName: $lastName, firstName: $firstName, gender: $gender, height: $height, bornDate: $bornDate, bgColor: $color)
                     }
                     .alert(alertTitle, isPresented: $showResult) {
                         Button("OK") {}
@@ -120,7 +120,7 @@ struct ContentView: View {
                             lastName = ""
                             firstName = ""
                             gender = ""
-                            sexIndex = 10
+                            sexIndex = 0
                             height = 0.0
                             isExpanded = false
                             bornDate = Date()
